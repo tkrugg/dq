@@ -1,0 +1,24 @@
+<form action="/uploads" ng-upload="home.complete(content)" method="POST" enctype="multipart/form-data">
+	<div class="form-group row">
+		<div class="form-item">
+			<div class="file-upload">
+				<label class="label">File Upload</label>
+				<label for="file1" class="input input--primary file-upload__field" data-placeholder="{{home.file && home.file.name || 'Select a file'}}"></label>
+				<input id="file1" class="file-upload__input" type="file" name="data" ng-file-model="home.file">
+				<input type="submit" class="button button--primary file-upload__label" ng-disabled="!home.file || home.$isUploading"></input>
+			</div>
+		</div>
+	</div>
+</form>
+<div>
+	<greeting name="home.name"></greeting>
+	<histogram name="home.name" nb-of-bins="{{home.nbOfBins}}" data="home.data"></histogram>
+	<div class="form-group row">
+		<div class="form-item" ng-show="home.data.length">
+			<input type="range" ng-model="home.nbOfBins" ng-model-options="{ debounce: 500 }" min="0" max="100" ng-change="home.reset()"> {{home.nbOfBins}}
+			<button class="button button--primary" ng-click="home.save(home.nbOfBins)" ng-show="!home.saving">save</button>
+			<button class="button button--primary" disabled ng-show="home.saving"> saved </button>
+		</div>
+	</div>
+</div>
+
